@@ -9,9 +9,9 @@ const EventFilter = () => {
 
   return (
     <div>
-      <div className="flex justify-center mt-5  transition-all duration-300  hover:bg-gray-transparent">
-      <button onClick={handleClose} className="flex  space-x-2 p-2 border-none h-full w-full">
-          <p>Mi calendario</p>
+      <div className="flex mt-5 transition-all duration-300 rounded hover:bg-gray-100">
+      <button onClick={handleClose} className="flex justify-between items-center space-x-2 p-2 border-none h-full w-full">
+          <p className="font-bold text-lg text-center text-zinc-700">Mi calendario</p>
           <img
             src={open ? "/logo/up.png" : "/logo/down.png"}
             alt="abrir"
@@ -20,7 +20,7 @@ const EventFilter = () => {
         </button>
       </div>
       {open && (
-       <div className="mt-2 p-2 border rounded bg-gray-100">
+       <div className="mt-1 p-4 border-hidden rounded shadow-inset-custom bg-white ">
        <ul>
          <li className="flex items-center">
            <input type="checkbox" id="mañana" className="mr-2" />
