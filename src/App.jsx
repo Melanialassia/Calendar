@@ -5,11 +5,11 @@ import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
-    <div>
+    <div className="m-0 p-0">
       <Navbar />
-      <div>
-        <MyCalendar />
+      <div className="flex">
         <LateralMenu />
+        <MyCalendar />
       </div>
     </div>
   );
