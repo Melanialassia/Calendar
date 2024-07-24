@@ -14,7 +14,7 @@ const MyCalendar = () => {
         localizer={localizer}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 700, width: 900, margin: "0 auto" }}
+        style={{ height: 700, width: '100%', margin: "0 auto" }}
         className="custom"
         views={["month", "week", "day"]}
         messages={{
