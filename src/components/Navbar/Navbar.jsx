@@ -1,13 +1,13 @@
 //COMPONENTS
-import SearchBar from "../SearchBar/SearchBar";
 import { DarkThemeToggle, Flowbite } from "flowbite-react";
+import LateralMenu from "../LateralMenu/LateralMenu";
 
 const Navbar = () => {
   return (
-    <nav className="bg-white  dark:bg-gray-900 border-b-red-600">
+    <nav className="bg-white  dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 ">
         <a
-          href="https://flowbite.com/"
+          href="/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
           <img src="/logo/calendar.png" className="h-8" alt="Calendar logo" />
@@ -16,7 +16,7 @@ const Navbar = () => {
           </span>
         </a>
         <Flowbite>
-          <DarkThemeToggle />
+          <DarkThemeToggle  />
         </Flowbite>
         {/* BAARA DE BUSQUEDA */}
         <div className="flex md:order-2">
@@ -105,7 +105,7 @@ const Navbar = () => {
           </button>
         </div>
       </div>
-      {/* <hr/>  */}
+      <hr/> 
     </nav>
   );
 };
