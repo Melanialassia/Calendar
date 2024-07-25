@@ -1,7 +1,7 @@
 // COMPONENTS
 import { DarkThemeToggle, Flowbite } from "flowbite-react";
 
-const Navbar = () => {
+const Navbar = ({ openModal }) => {
   return (
     <nav className="bg-white">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -16,7 +16,7 @@ const Navbar = () => {
         </a>
         {/* BARDA DE BUSQUEDA */}
         <div className="flex md:order-2">
-          <button className="p-2.5 transition-all duration-300 rounded-lg hover:bg-gray-100">
+          <button onClick={openModal} className="p-2.5 transition-all duration-300 rounded-lg hover:bg-gray-100">
             <img
               src="/logo/add.png"
               alt="add logo"
