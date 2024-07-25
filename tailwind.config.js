@@ -6,6 +6,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      height:{
+        '400': '450px'
+      },
+      width:{
+        '400': '400px'
+      },
       colors: {
         'gray-transparent': 'rgba(192, 192, 192, 0.5)',
       },

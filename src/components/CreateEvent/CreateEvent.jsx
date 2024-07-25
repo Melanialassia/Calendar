@@ -8,7 +8,6 @@ import {
 } from "antd";
 import esES from "antd/es/locale/es_ES"; // Importa la configuración en español desde ant desing
 
-
 const CreateEvent = () => {
   const onChangeDate = (date, dateString) => {
     console.log(date, dateString); //podemos ver la fehca
@@ -19,7 +18,7 @@ const CreateEvent = () => {
   };
 
   return (
-    <div className=" max-w-screen-xl flex flex-col mx-auto justify-center items-center  w-4/5  mt-6">
+    <div className=" max-w-screen-xl flex flex-col mx-auto justify-center items-center ">
       <h2 className="text-2xl font-semibold mb-6 mt-2">Añade un nuevo turno</h2>
       <Form
         layout="vertical"
@@ -28,6 +27,7 @@ const CreateEvent = () => {
           width: "80%",
         }}
       >
+
         <Form.Item
           name="Title"
           rules={[
@@ -44,6 +44,21 @@ const CreateEvent = () => {
         </Form.Item>
 
         <Form.Item
+          name="ape_nom"
+          rules={[
+            {
+              required: true,
+              message: "Por favor, ingresa un título!",
+            },
+          ]}
+        >
+          <Input
+            className="p-3 border border-gray-300 rounded-md focus:ring-0 focus:ring-blue-500 focus:border-blue-500 text-lg"
+            placeholder="Nombre y Apellido"
+          />
+        </Form.Item>
+
+        <Form.Item
           name="DatePicker"
           rules={[
             {
@@ -56,6 +71,7 @@ const CreateEvent = () => {
             className="w-full p-3"
             onChange={onChangeDate}
             locale={esES}
+            placeholder="Seleccione la fecha"
           />
         </Form.Item>
 
@@ -73,14 +89,17 @@ const CreateEvent = () => {
               format="HH:mm"
               onChange={onChangeHour}
               className="w-full p-3"
+              placeholder="Seleccione la fecha"
             />
           </ConfigProvider>
         </Form.Item>
+
         <Form.Item className="flex justify-end">
           <Button type="primary" htmlType="submit">
             Guardar
           </Button>
         </Form.Item>
+
       </Form>
     </div>
   );
