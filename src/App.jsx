@@ -1,11 +1,11 @@
 //HOOKS
 import { useState } from "react";
 //COMPONENTS
+import CreateEvent from "./components/CreateEvent/CreateEvent";
 import LateralMenu from "./components/LateralMenu/LateralMenu";
 import MyCalendar from "./components/MyCalendar/MyCalendar";
-import Modal from "./components/Modal/Modal";
 import Navbar from "./components/Navbar/Navbar";
-import CreateEvent from "./components/CreateEvent/CreateEvent";
+import Modal from "./components/Modal/Modal";
 
 function App() {
 
