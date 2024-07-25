@@ -18,7 +18,9 @@ const Navbar = ({ openModal }) => {
             <img
               src="/logo/add.png"
               alt="add logo"
-              className="w-7 transition-transform duration-300 hover:animate-rotate-scale"
+              className="w-7 transition-transform duration-300 hover:animate-rotate-scale
+"
+              // animate-rotate-scale
             />
           </button>
         </div>
