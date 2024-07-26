@@ -1,9 +1,9 @@
 //HOOKS
 import { useEffect, useState } from "react";
 //COMPONENTS
-import CreateEvent from "./components/CreateEvent/CreateEvent";
 import LateralMenu from "./components/LateralMenu/LateralMenu";
 import MyCalendar from "./components/MyCalendar/MyCalendar";
+import FormEvent from "./components/FormEvent/FormEvent";
 import Navbar from "./components/Navbar/Navbar";
 import Modal from "./components/Modal/Modal";
 //STORE
@@ -13,30 +13,41 @@ function App() {
   const { getEvents, events } = store();
 
   useEffect(() => {
-    if(events.length === 0) {
+    if (events.length === 0) {
       getEvents();
     }
   }, []);
 
+  const [modal, setModal] = useState(false);
+  const [initialValues, setInitialValues] = useState({});
 
-  const [showModal, setShowModal] = useState(false);
-  
-  const openModal = () => {
-    setShowModal(true);
+  const openCreateModal = () => {
+    setInitialValues({});
+    setModal(true);
   };
+
+  const openEditModal = (info) => {
+    setInitialValues(info);
+    console.log("hola", initialValues);
+    setModal(true)
+  }
 
   const closeModal = () => {
-    setShowModal(false);
+    setModal(false);
   };
+
+
 
   return (
     <div className="m-0 p-0">
-      <Navbar openModal={openModal} />
+      <Navbar openModal={openCreateModal} />
       <div className=" flex flex-row justify-between mx-auto p-4">
         <LateralMenu />
-        <MyCalendar />
-        <Modal show={showModal} onClose={closeModal}>
-          <CreateEvent />
+        <MyCalendar openModal={openEditModal} />
+        <Modal show={modal} onClose={closeModal}>
+          <FormEvent 
+          initialValues={initialValues}
+          />
         </Modal>
       </div>
     </div>
