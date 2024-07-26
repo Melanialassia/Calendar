@@ -1,3 +1,4 @@
+
 const Modal = ({ show, onClose, children }) => {
   if (!show) return null;
 
