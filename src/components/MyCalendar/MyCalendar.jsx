@@ -13,26 +13,18 @@ import "./mycalendar.css";
 
 const MyCalendar = ({ openModal }) => {
 
-  const {events,getEvents, setEvents } = store();
+  const {events,getEvents, setEvents, copyEvents } = store();
   const localizer = dayjsLocalizer(dayjs);
 
   useEffect(() => {
-    const copy = localStorage.getItem("loaded");
-    console.log("copy", copy);
-
-    if(!copy){
-      console.log("entre");
-      getEvents();
-    } else {
-      setEvents();
-    }
+    getEvents();
   }, [getEvents]);
 
 
   //para poder agregarle estilos al calendario
   const eventPropGetter = (e) => {
     const style = {
-      background: e.id === -1 ? "#057A55" : "#6BBEE8",
+      background: e.title === "Disponible" ? "#057A55" : "#6BBEE8",
       color: "white",
       border: "none",
     };
@@ -41,6 +33,7 @@ const MyCalendar = ({ openModal }) => {
   };
 
   const handleEdit = (info) => {
+    console.log("edicion", info);
     openModal(info);
   };
 
@@ -48,7 +41,7 @@ const MyCalendar = ({ openModal }) => {
     <div className="flex p-4 w-full h-full">
       <Calendar
         localizer={localizer}
-        events={events}
+        events={copyEvents}
         defaultDate={new Date(2021, 8, 16)}
         style={{ height: 700, width: "100%", margin: "0 auto" }}
         eventPropGetter={eventPropGetter}
