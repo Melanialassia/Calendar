@@ -5,7 +5,7 @@ import { DatePicker, ConfigProvider, Space, Form, Input, Button } from "antd";
 import esES from "antd/es/locale/es_ES"; // Importa la configuración en español desde ant desing
 import dayjs from "dayjs";
 
-const FormEvent = ({ initialValues }) => {
+const FormEvent = ({ initialValues, setInitialValues }) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const FormEvent = ({ initialValues }) => {
     } else {
       form.resetFields();
     }
-  }, []);
+  }, [initialValues, form]);
 
   // const onChangeDate = (date, dateString) => {
   //   console.log(date, dateString); //podemos ver la fehca
@@ -26,26 +26,38 @@ const FormEvent = ({ initialValues }) => {
   //   console.log("onChange:", timeString); // mostramos la hora
   // };
 
-  const onChangeStart = (_, dateStr) => {
-    console.log("onChange:", dateStr);
-    const result = new Date(dateStr);
-    console.log("estoy aca", result);
+  const onChangeStart = (value) => {
+  
+    const result = new Date(value);
+    setInitialValues({
+      start: result,
+    });
   };
 
-  const onChangeEnd = (_, dateStr) => {
-    console.log("onChange:", dateStr);
-    const result = new Date(dateStr);
-    console.log("estoy aca", result);
+  const onChangeEnd = (value) => {
+    
+    const result = new Date(value);
+    setInitialValues({
+      ...initialValues,
+      end: result,
+    });
+  };
+  
+  const handleSubmit = () =>{
+    
   };
 
   return (
     <div className=" max-w-screen-xl flex flex-col mx-auto mt-6 justify-center items-center ">
       <h2 className="text-2xl font-semibold mb-6 mt-2">
-        {Object.keys(initialValues).length === 0 ? "Añadir nuevo turno" : "Editar turno"}
+        {Object.keys(initialValues).length === 0
+          ? "Añadir nuevo turno"
+          : "Editar turno"}
       </h2>
       <Form
         layout="vertical"
         form={form}
+        onFinish={handleSubmit}
         initialValues={initialValues}
         style={{
           maxWidth: 400,
@@ -81,9 +93,9 @@ const FormEvent = ({ initialValues }) => {
           <ConfigProvider locale={esES}>
             <Space direction="vertical">
               <DatePicker
-              format="DD-MM-YYYY HH:mm"
+                format="YYYY-MM-DD HH:mm"
                 showTime
-                defaultValue={dayjs(initialValues.start)}
+                value={initialValues ? dayjs(initialValues.start) : null}
                 onChange={onChangeStart}
               />
             </Space>
@@ -103,9 +115,9 @@ const FormEvent = ({ initialValues }) => {
           <ConfigProvider locale={esES}>
             <Space direction="vertical">
               <DatePicker
-              format="DD-MM-YYYY HH:mm"
+                format="DD-MM-YYYY HH:mm"
                 showTime
-                defaultValue={dayjs(initialValues.end)}
+               value={initialValues ? dayjs(initialValues.end) : null}
                 onChange={onChangeEnd}
               />
             </Space>
