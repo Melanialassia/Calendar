@@ -1,6 +1,6 @@
-//HOOK
-import { useState } from "react";
-
+//HOOKS
+import { useEffect } from "react";
+//LIBRARY
 import { Calendar, dayjsLocalizer } from "react-big-calendar";
 import dayjs from "dayjs";
 import "dayjs/locale/es";
@@ -13,16 +13,21 @@ import "./mycalendar.css";
 
 const MyCalendar = ({ openModal }) => {
 
-  const { events } = store();
+  const {events,getEvents, setEvents } = store();
   const localizer = dayjsLocalizer(dayjs);
 
-  const mapEvents = events.map((e) => ({
-    id: e.id,
-    title: e.title,
-    start: e.start,
-    end: e.end,
-  }));
-  console.log("eventos", events);
+  useEffect(() => {
+    const copy = localStorage.getItem("loaded");
+    console.log("copy", copy);
+
+    if(!copy){
+      console.log("entre");
+      getEvents();
+    } else {
+      setEvents();
+    }
+  }, [getEvents]);
+
 
   //para poder agregarle estilos al calendario
   const eventPropGetter = (e) => {
@@ -37,15 +42,14 @@ const MyCalendar = ({ openModal }) => {
 
   const handleEdit = (info) => {
     openModal(info);
-    console.log("evento", openModal);
   };
 
   return (
     <div className="flex p-4 w-full h-full">
       <Calendar
         localizer={localizer}
-        events={mapEvents}
-        date={"2021-09-16"}
+        events={events}
+        defaultDate={new Date(2021, 8, 16)}
         style={{ height: 700, width: "100%", margin: "0 auto" }}
         eventPropGetter={eventPropGetter}
         onDoubleClickEvent={handleEdit}

@@ -6,18 +6,10 @@ import MyCalendar from "./components/MyCalendar/MyCalendar";
 import FormEvent from "./components/FormEvent/FormEvent";
 import Navbar from "./components/Navbar/Navbar";
 import Modal from "./components/Modal/Modal";
-//STORE
-import { store } from "./store/store";
+
 
 function App() {
-  const { getEvents, events } = store();
-
-  useEffect(() => {
-    if (events.length === 0) {
-      getEvents();
-    }
-  }, []);
-
+  
   const [modal, setModal] = useState(false);
   const [initialValues, setInitialValues] = useState({});
 
@@ -37,7 +29,6 @@ function App() {
   };
 
 
-
   return (
     <div className="m-0 p-0">
       <Navbar openModal={openCreateModal} />
@@ -47,6 +38,7 @@ function App() {
         <Modal show={modal} onClose={closeModal}>
           <FormEvent 
           initialValues={initialValues}
+          setInitialValues={setInitialValues}
           />
         </Modal>
       </div>
