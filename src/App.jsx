@@ -10,10 +10,11 @@ import Modal from "./components/Modal/Modal";
 function App() {
   const [modal, setModal] = useState(false);
   const [initialValues, setInitialValues] = useState({});
-
-  const getRandomId = (num) =>{ //le creo un id random a evento
-    return Math.floor(Math.random() * num + 1)
-  }
+  const [isEditting, setIsEditting] = useState(false);
+  const getRandomId = (num) => {
+    //le creo un id random a evento
+    return Math.floor(Math.random() * num + 1);
+  };
 
   const openCreateModal = () => {
     const idResult = getRandomId(100);
@@ -31,23 +32,27 @@ function App() {
 
   const openEditModal = (info) => {
     setInitialValues(info);
+    setIsEditting(true);
     setModal(true);
   };
- 
+
   const closeModal = () => {
+    setIsEditting(false);
     setModal(false);
   };
 
   return (
     <div className="m-0 p-0">
-      <Navbar openModal={openCreateModal} />
+      <Navbar openCreateModal={openCreateModal} />
       <div className=" flex flex-row justify-between mx-auto p-4">
         <LateralMenu />
-        <MyCalendar openModal={openEditModal} />
+        <MyCalendar openEditModal={openEditModal} />
         <Modal show={modal} onClose={closeModal}>
           <FormEvent
             initialValues={initialValues}
             setInitialValues={setInitialValues}
+            isEditting={isEditting}
+            setIsEditting={setIsEditting}
           />
         </Modal>
       </div>
