@@ -11,20 +11,18 @@ import { store } from "../../store/store";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./mycalendar.css";
 
-const MyCalendar = ({ openModal }) => {
-
-  const {events,getEvents, setEvents, copyEvents } = store();
+const MyCalendar = ({ openEditModal }) => {
+  const { getEvents, copyEvents, removeEvent } = store();
   const localizer = dayjsLocalizer(dayjs);
 
   useEffect(() => {
     getEvents();
   }, [getEvents]);
 
-
   //para poder agregarle estilos al calendario
   const eventPropGetter = (e) => {
     const style = {
-      background: e.title === "Disponible" ? "#057A55" : "#6BBEE8",
+      background: e.title === "DISPONIBLE" ? "#057A55" : "#6BBEE8",
       color: "white",
       border: "none",
     };
@@ -32,9 +30,8 @@ const MyCalendar = ({ openModal }) => {
     return { style };
   };
 
-  const handleEdit = (info) => {
-    console.log("edicion", info);
-    openModal(info);
+  const handleEditEvent = (info) => {
+    openEditModal(info);
   };
 
   return (
@@ -45,7 +42,7 @@ const MyCalendar = ({ openModal }) => {
         defaultDate={new Date(2021, 8, 16)}
         style={{ height: 700, width: "100%", margin: "0 auto" }}
         eventPropGetter={eventPropGetter}
-        onDoubleClickEvent={handleEdit}
+        onDoubleClickEvent={handleEditEvent}
         className="custom"
         views={["month", "week", "day", "agenda"]}
         messages={{
