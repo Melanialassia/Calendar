@@ -12,7 +12,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./mycalendar.css";
 
 const MyCalendar = ({ openEditModal }) => {
-  const { getEvents, copyEvents, removeEvent } = store();
+  const { getEvents, copyEvents } = store();
   const localizer = dayjsLocalizer(dayjs);
 
   useEffect(() => {

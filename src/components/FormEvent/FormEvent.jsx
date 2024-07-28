@@ -21,6 +21,7 @@ const FormEvent = ({
   setInitialValues,
   isEditting,
   setIsEditting,
+  closeModal
 }) => {
   const { addEvent, updateEvents, removeEvent } = store();
   const [modal, contextHolder] = Modal.useModal();
@@ -69,6 +70,7 @@ const FormEvent = ({
     if (confirmed) {
       removeEvent(initialValues);
       message.success("Evento eliminado con éxito!");
+      closeModal();
     }
   };
 
@@ -85,15 +87,15 @@ const FormEvent = ({
         //editar evento
         updateEvents(event);
         message.success("Evento editado con éxito!");
-        form.resetFields();
         
       } else {
         //crear evento
         addEvent(event);
         message.success("Evento creado con éxito!");
-        form.resetFields();
-    
+        
       }
+      form.resetFields();
+      closeModal();
     }
   };
   console.log("aca", initialValues);

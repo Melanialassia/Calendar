@@ -1,5 +1,5 @@
 //HOOKS
-import { useEffect, useState } from "react";
+import { useState } from "react";
 //COMPONENTS
 import LateralMenu from "./components/LateralMenu/LateralMenu";
 import MyCalendar from "./components/MyCalendar/MyCalendar";
@@ -53,6 +53,7 @@ function App() {
             setInitialValues={setInitialValues}
             isEditting={isEditting}
             setIsEditting={setIsEditting}
+            closeModal={closeModal}
           />
         </Modal>
       </div>
