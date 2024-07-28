@@ -1,5 +1,4 @@
-
-const Navbar = ({ openModal }) => {
+const Navbar = ({ openCreateModal }) => {
   return (
     <nav className="bg-white">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -14,7 +13,10 @@ const Navbar = ({ openModal }) => {
         </a>
         {/* BARDA DE BUSQUEDA */}
         <div className="flex md:order-2">
-          <button onClick={openModal} className="p-2.5 transition-all duration-300 rounded-lg hover:bg-gray-100">
+          <button
+            onClick={openCreateModal}
+            className="p-2.5 transition-all duration-300 rounded-lg hover:bg-gray-100"
+          >
             <img
               src="/logo/add.png"
               alt="add logo"
@@ -76,7 +78,7 @@ const Navbar = ({ openModal }) => {
               className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Search..."
             />
-          </div>  
+          </div>
         </div>
       </div>
       <hr />
