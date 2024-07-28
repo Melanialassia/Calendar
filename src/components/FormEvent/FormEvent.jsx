@@ -2,23 +2,34 @@
 import { useEffect } from "react";
 //LIBRARY
 import {
-  DatePicker,
   ConfigProvider,
-  Space,
-  Form,
-  Input,
-  Button,
+  DatePicker,
   message,
+  Button,
+  Space,
+  Input,
+  Form,
+  Modal,
 } from "antd";
-import { dayjsLocalizer } from "react-big-calendar";
 import esES from "antd/es/locale/es_ES"; // Importa la configuración en español desde ant desing
 import dayjs from "dayjs";
 //STORE
 import { store } from "../../store/store";
 
-const FormEvent = ({ initialValues, setInitialValues }) => {
+const FormEvent = ({
+  initialValues,
+  setInitialValues,
+  isEditting,
+  setIsEditting,
+}) => {
+  const { addEvent, updateEvents, removeEvent } = store();
+  const [modal, contextHolder] = Modal.useModal();
   const [form] = Form.useForm();
-  const { addEvent } = store();
+
+  //mensaje modal de confirmacion
+  const config = {
+    title: "¿Esta seguro de borrar el evento?",
+  };
 
   useEffect(() => {
     if (initialValues) {
@@ -52,20 +63,37 @@ const FormEvent = ({ initialValues, setInitialValues }) => {
     });
   };
 
-  const [messageApi, contextHolder] = message.useMessage();
-  const key = "updatable";
+  const handleDeleteEvent = async () => {
+    const confirmed = await modal.confirm(config);
+
+    if (confirmed) {
+      removeEvent(initialValues);
+      message.success("Evento eliminado con éxito!");
+    }
+  };
 
   const handleSubmit = () => {
     if (initialValues) {
-      const obj={
+      const event = {
         id: initialValues.id,
-        title:initialValues.title.toUpperCase(),
+        title: initialValues.title.toUpperCase(),
         start: initialValues.start,
-        end: initialValues.end
+        end: initialValues.end,
+      };
+
+      if (isEditting) {
+        //editar evento
+        updateEvents(event);
+        message.success("Evento editado con éxito!");
+        form.resetFields();
+        
+      } else {
+        //crear evento
+        addEvent(event);
+        message.success("Evento creado con éxito!");
+        form.resetFields();
+    
       }
-      addEvent(obj);
-      message.success("Evento creado con éxito!");
-      
     }
   };
   console.log("aca", initialValues);
@@ -73,15 +101,12 @@ const FormEvent = ({ initialValues, setInitialValues }) => {
   return (
     <div className=" max-w-screen-xl flex flex-col mx-auto mt-6 justify-center items-center ">
       <h2 className="text-2xl font-semibold mb-6 mt-2">
-        {initialValues.title === ""
-          ? "Añadir nuevo turno"
-          : "Editar turno"}
+        {isEditting === false ? "Añadir nuevo turno" : "Editar turno"}
       </h2>
       <Form
         layout="vertical"
         form={form}
         onFinish={handleSubmit}
-        initialValues={initialValues}
         style={{
           maxWidth: 400,
           width: "80%",
@@ -98,7 +123,7 @@ const FormEvent = ({ initialValues, setInitialValues }) => {
           ]}
         >
           <Input
-            value={initialValues ? initialValues.title : null}
+            value={initialValues.title}
             className="border border-gray-300 rounded-md focus:ring-0 focus:ring-blue-500 focus:border-blue-500 "
             placeholder="Ingresa un título"
             onChange={onChangeTitle}
@@ -118,7 +143,7 @@ const FormEvent = ({ initialValues, setInitialValues }) => {
           <ConfigProvider locale={esES}>
             <Space direction="vertical">
               <DatePicker
-                format="YYYY-MM-DD HH:mm"
+                format="DD-MM-YYYY HH:mm"
                 showTime
                 value={dayjs(initialValues.start)}
                 onChange={onChangeStart}
@@ -155,6 +180,23 @@ const FormEvent = ({ initialValues, setInitialValues }) => {
           </Button>
         </Form.Item>
       </Form>
+
+      {isEditting && (
+        <Button
+          htmlType="submit"
+          onClick={handleDeleteEvent}
+          style={{
+            border: "none",
+          }}
+        >
+          <img
+            src="/logo/delete.png"
+            alt="add logo"
+            className="w-7 transition-transform duration-300 hover:animate-rotate-scale"
+          />
+        </Button>
+      )}
+      {contextHolder}
     </div>
   );
 };
