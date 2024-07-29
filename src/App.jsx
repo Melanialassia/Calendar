@@ -1,7 +1,6 @@
 //HOOKS
 import { useState } from "react";
 //COMPONENTS
-import LateralMenu from "./components/LateralMenu/LateralMenu";
 import MyCalendar from "./components/MyCalendar/MyCalendar";
 import FormEvent from "./components/FormEvent/FormEvent";
 import Navbar from "./components/Navbar/Navbar";
@@ -11,9 +10,10 @@ function App() {
   const [modal, setModal] = useState(false);
   const [initialValues, setInitialValues] = useState({});
   const [isEditting, setIsEditting] = useState(false);
+
   const getRandomId = (num) => {
     //le creo un id random a evento
-    return Math.floor(Math.random() * num + 1);
+    return Math.floor(Math.random() * num);
   };
 
   const openCreateModal = () => {
@@ -44,8 +44,7 @@ function App() {
   return (
     <div className="m-0 p-0">
       <Navbar openCreateModal={openCreateModal} />
-      <div className=" flex flex-row justify-between mx-auto p-4">
-        <LateralMenu />
+      <div className=" flex  mx-auto p-4">
         <MyCalendar openEditModal={openEditModal} />
         <Modal show={modal} onClose={closeModal}>
           <FormEvent
