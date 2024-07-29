@@ -16,15 +16,21 @@ export const store = create((set, get) => ({
           "https://my-json-server.typicode.com/juanpernu/bilog-fe-challenge/schedule"
         );
 
+        const getRandomId = (num) => {
+          //le creo un id random a evento
+          return Math.floor(Math.random() * num);
+        };
+
         const formatEvent = data.map((e) => {
           const fecha = e.fecha.slice(0, 10);
           const start = new Date(`${fecha}T${e.hora}:00`);
 
           const end = new Date(start.getTime() + 30 * 60000); // a la hora del inicio  se le suma 30 minutos para asi generar la hora final
+          const idRandom = getRandomId(1000);
 
           const result = {
-            id: e.id_agenda,
-            title: e.id_agenda === -1 ? "DISPONIBLE" : e.ape_nom,
+            id: idRandom,
+            title: e.ape_nom === null ? "DISPONIBLE" : e.ape_nom,
             start: start,
             end: end,
           };
@@ -74,7 +80,7 @@ export const store = create((set, get) => ({
   updateEvents: (event) => {
     set((state) => {
       const filterEvent = state.events.filter(
-        (e) => e.start != event.start
+        (e) => e.id != event.id
       );
 
       const newListEvents = [...filterEvent, event];
@@ -90,7 +96,7 @@ export const store = create((set, get) => ({
   removeEvent: (event) => {
     set((state) => {
       const deleteEvent = state.events.filter(
-        (e) => e.start !== event.start
+        (e) => e.id !== event.id
       );
 
       localStorage.setItem("event", JSON.stringify(deleteEvent));

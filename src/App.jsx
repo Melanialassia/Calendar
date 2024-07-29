@@ -17,7 +17,7 @@ function App() {
   };
 
   const openCreateModal = ({ start, end }) => {
-    const idResult = getRandomId(100);
+    const idResult = getRandomId(2000);
 
     const defaultValue = new Date(2021, 8, 16, 18, 30);
 
