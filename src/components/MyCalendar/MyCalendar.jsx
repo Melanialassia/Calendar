@@ -40,7 +40,7 @@ const MyCalendar = ({ openEditModal }) => {
         localizer={localizer}
         events={copyEvents}
         defaultDate={new Date(2021, 8, 16)}
-        style={{ height: 700, width: "100%", margin: "0 auto" }}
+        style={{ height: 700, width: "95%", margin: "0 auto" }}
         eventPropGetter={eventPropGetter}
         onDoubleClickEvent={handleEditEvent}
         className="custom"
