@@ -11,8 +11,8 @@ import { store } from "../../store/store";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./mycalendar.css";
 
-const MyCalendar = ({ openEditModal }) => {
-  const { getEvents, copyEvents } = store();
+const MyCalendar = ({ openEditModal, openCreateModal }) => {
+  const { getEvents, events } = store();
   const localizer = dayjsLocalizer(dayjs);
 
   useEffect(() => {
@@ -34,15 +34,22 @@ const MyCalendar = ({ openEditModal }) => {
     openEditModal(info);
   };
 
+  const handleSelectSlot = ({ start, end }) => {
+    openCreateModal({ start, end });
+  };
+
+
   return (
     <div className="flex p-4 w-full h-full">
       <Calendar
         localizer={localizer}
-        events={copyEvents}
+        events={events}
         defaultDate={new Date(2021, 8, 16)}
         style={{ height: 700, width: "95%", margin: "0 auto" }}
         eventPropGetter={eventPropGetter}
         onDoubleClickEvent={handleEditEvent}
+        onSelectSlot={handleSelectSlot}
+        selectable
         className="custom"
         views={["month", "week", "day", "agenda"]}
         messages={{
