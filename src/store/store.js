@@ -4,24 +4,14 @@ import dayjs from "dayjs";
 
 export const store = create((set, get) => ({
   events: [],
-  copyEvents: [],
+
 
   getEvents: async () => {
     try {
       const storedEvent = JSON.parse(localStorage.getItem("event"));
 
-      if (storedEvent) {
-        const result = storedEvent.map((e) => ({
-          id: e.id,
-          title: e.title,
-          start: new Date(e.start),
-          end: new Date(e.end),
-        }));
-
-        set({
-          copyEvents: result,
-        });
-      } else {
+      if (!storedEvent) {
+        
         const { data } = await axios(
           "https://my-json-server.typicode.com/juanpernu/bilog-fe-challenge/schedule"
         );
@@ -46,9 +36,22 @@ export const store = create((set, get) => ({
 
         set((state) => ({
           ...state,
-          events: formatEvent,
-          copyEvents: [...formatEvent],
+          events: formatEvent
         }));
+
+      } else {
+      
+        const result = storedEvent.map((e) => ({
+          id: e.id,
+          title: e.title,
+          start: new Date(e.start),
+          end: new Date(e.end),
+        }));
+
+        set({
+          events: result,
+        });
+
       }
     } catch (error) {
       console.log(error);
@@ -57,20 +60,20 @@ export const store = create((set, get) => ({
 
   addEvent: (event) => {
     set((state) => {
-      const addEvent = [...state.copyEvents, event];
+      const addEvent = [...state.events, event];
 
       localStorage.setItem("event", JSON.stringify(addEvent));
 
       return {
         ...state,
-        copyEvents: addEvent,
+        events: addEvent,
       };
     });
   },
 
   updateEvents: (event) => {
     set((state) => {
-      const filterEvent = state.copyEvents.filter(
+      const filterEvent = state.events.filter(
         (e) => e.start != event.start
       );
 
@@ -79,14 +82,14 @@ export const store = create((set, get) => ({
 
       return {
         ...state,
-        copyEvents: newListEvents,
+        events: newListEvents,
       };
     });
   },
 
   removeEvent: (event) => {
     set((state) => {
-      const deleteEvent = state.copyEvents.filter(
+      const deleteEvent = state.events.filter(
         (e) => e.start !== event.start
       );
 
@@ -94,7 +97,7 @@ export const store = create((set, get) => ({
 
       return {
         ...state,
-        copyEvents: deleteEvent,
+        events: deleteEvent,
       };
     });
   },
