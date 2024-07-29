@@ -10,7 +10,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./lateralmenu.css";
 import EventFilter from "./components/EventFilter/EventFilter";
 
-const LateralMenu = ({ setDateSelected }) => {
+const LateralMenu = ({ setDateSelected, handleFilterChange }) => {
   const localizer = dayjsLocalizer(dayjs);
   const { getEvents, events } = store();
 
@@ -68,7 +68,7 @@ const LateralMenu = ({ setDateSelected }) => {
           />
         </li>
         <li>
-          <EventFilter />
+          <EventFilter handleFilterChange={handleFilterChange} />
         </li>
       </ul>
     </aside>

@@ -15,8 +15,9 @@ const MyCalendar = ({
   openEditModal,
   openCreateModal,
   dateSelected,
-  view,
   setView,
+  view,
+  filter
 }) => {
   const { getEvents, events } = store();
   const localizer = dayjsLocalizer(dayjs);

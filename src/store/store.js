@@ -5,13 +5,11 @@ import dayjs from "dayjs";
 export const store = create((set, get) => ({
   events: [],
 
-
   getEvents: async () => {
     try {
       const storedEvent = JSON.parse(localStorage.getItem("event"));
 
       if (!storedEvent) {
-        
         const { data } = await axios(
           "https://my-json-server.typicode.com/juanpernu/bilog-fe-challenge/schedule"
         );
@@ -42,11 +40,9 @@ export const store = create((set, get) => ({
 
         set((state) => ({
           ...state,
-          events: formatEvent
+          events: formatEvent,
         }));
-
       } else {
-      
         const result = storedEvent.map((e) => ({
           id: e.id,
           title: e.title,
@@ -57,7 +53,6 @@ export const store = create((set, get) => ({
         set({
           events: result,
         });
-
       }
     } catch (error) {
       console.log(error);
@@ -79,9 +74,7 @@ export const store = create((set, get) => ({
 
   updateEvents: (event) => {
     set((state) => {
-      const filterEvent = state.events.filter(
-        (e) => e.id != event.id
-      );
+      const filterEvent = state.events.filter((e) => e.id != event.id);
 
       const newListEvents = [...filterEvent, event];
       localStorage.setItem("event", JSON.stringify(newListEvents));
@@ -95,9 +88,7 @@ export const store = create((set, get) => ({
 
   removeEvent: (event) => {
     set((state) => {
-      const deleteEvent = state.events.filter(
-        (e) => e.id !== event.id
-      );
+      const deleteEvent = state.events.filter((e) => e.id !== event.id);
 
       localStorage.setItem("event", JSON.stringify(deleteEvent));
 
@@ -105,6 +96,37 @@ export const store = create((set, get) => ({
         ...state,
         events: deleteEvent,
       };
+    });
+  },
+
+  filterEvent: (value) => {
+    set((state) => {
+      const eventsState = JSON.parse(localStorage.getItem("event"));
+      const eventsList = eventsState.map((e) => ({
+        id: e.id,
+        title: e.title,
+        start: new Date(e.start),
+        end: new Date(e.end),
+      }));
+
+      if (value === "disponible") {
+        const result = eventsList.filter((e) => e.title === "DISPONIBLE");
+        return {
+          ...state,
+          events: result,
+        };
+      } else if (value === "ocupado") {
+        const result = eventsList.filter((e) => e.title != "DISPONIBLE");
+        return {
+          ...state,
+          events: result,
+        };
+      } else if (value === "todos") {
+        return {
+          ...state,
+          events: eventsList,
+        };
+      }
     });
   },
 }));
