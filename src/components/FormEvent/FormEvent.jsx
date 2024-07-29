@@ -20,8 +20,7 @@ const FormEvent = ({
   initialValues,
   setInitialValues,
   isEditting,
-  setIsEditting,
-  closeModal,
+  closeModal
 }) => {
   const { addEvent, updateEvents, removeEvent } = store();
   const [modal, contextHolder] = Modal.useModal();
@@ -49,12 +48,23 @@ const FormEvent = ({
 
   const onChangeStart = (value) => {
     const result = value ? new Date(value) : null;
-
+console.log("entre", result);
     if (initialValues.end && result > new Date(initialValues.end)) {
       setInitialValues({
         ...initialValues,
         start: initialValues.end,
         end: result,
+      });
+      message.open({
+        type: "warning",
+        content:
+          "La fecha de inicio no puede ser posterior a la de finalización!.",
+        duration: 4,
+      });
+    } else {
+      setInitialValues({
+        ...initialValues,
+        start: result,
       });
     }
   };
@@ -110,13 +120,14 @@ const FormEvent = ({
       message.success("Evento editado con éxito!");
     } else {
       //crear evento
-
       addEvent(event);
       message.success("Evento creado con éxito!");
     }
     form.resetFields();
     closeModal();
   };
+
+  console.log("resultado", initialValues);
 
   return (
     <div className=" max-w-screen-xl flex flex-col mx-auto mt-6 justify-center items-center ">
