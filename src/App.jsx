@@ -3,13 +3,17 @@ import { useState } from "react";
 //COMPONENTS
 import MyCalendar from "./components/MyCalendar/MyCalendar";
 import FormEvent from "./components/FormEvent/FormEvent";
+import LateralMenu from "./components/LateralMenu/LateralMenu";
 import Navbar from "./components/Navbar/Navbar";
 import Modal from "./components/Modal/Modal";
 
 function App() {
-  const [modal, setModal] = useState(false);
+  const [dateSelected, setDateSelected] = useState();
+  const [view, setView] = useState("month");
+
   const [initialValues, setInitialValues] = useState({});
   const [isEditting, setIsEditting] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const getRandomId = (num) => {
     //le creo un id random a evento
@@ -44,20 +48,28 @@ function App() {
     setModal(false);
   };
 
+
   return (
     <div className="m-0 p-0">
       <Navbar openCreateModal={openCreateModal} />
       <div className=" flex  mx-auto p-4">
+        <LateralMenu
+          setDateSelected={setDateSelected}
+        />
         <MyCalendar
-          openEditModal={openEditModal}
           openCreateModal={openCreateModal}
+          openEditModal={openEditModal}
+          setDateSelected={setDateSelected}
+          dateSelected={dateSelected}
+          setView={setView}
+          view={view}
         />
         <Modal show={modal} closeModal={closeModal}>
           <FormEvent
-            initialValues={initialValues}
             setInitialValues={setInitialValues}
-            isEditting={isEditting}
             setIsEditting={setIsEditting}
+            initialValues={initialValues}
+            isEditting={isEditting}
             closeModal={closeModal}
           />
         </Modal>
