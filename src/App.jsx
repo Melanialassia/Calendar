@@ -16,10 +16,13 @@ function App() {
     return Math.floor(Math.random() * num);
   };
 
-  const openCreateModal = () => {
+  const openCreateModal = ({ start, end }) => {
     const idResult = getRandomId(100);
-    const now = new Date();
-    const hourEnd = new Date(now.getTime() + 30 * 60000);
+
+    const defaultValue = new Date(2021, 8, 16, 18, 30);
+
+    const now = start || defaultValue;
+    const hourEnd = end || new Date(now.getTime() + 30 * 60000);
 
     setInitialValues({
       id: idResult,
@@ -45,8 +48,11 @@ function App() {
     <div className="m-0 p-0">
       <Navbar openCreateModal={openCreateModal} />
       <div className=" flex  mx-auto p-4">
-        <MyCalendar openEditModal={openEditModal} />
-        <Modal show={modal} onClose={closeModal}>
+        <MyCalendar
+          openEditModal={openEditModal}
+          openCreateModal={openCreateModal}
+        />
+        <Modal show={modal} closeModal={closeModal}>
           <FormEvent
             initialValues={initialValues}
             setInitialValues={setInitialValues}
