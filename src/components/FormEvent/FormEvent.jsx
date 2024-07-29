@@ -21,7 +21,7 @@ const FormEvent = ({
   setInitialValues,
   isEditting,
   setIsEditting,
-  closeModal
+  closeModal,
 }) => {
   const { addEvent, updateEvents, removeEvent } = store();
   const [modal, contextHolder] = Modal.useModal();
@@ -48,20 +48,39 @@ const FormEvent = ({
   };
 
   const onChangeStart = (value) => {
-    const result = new Date(value);
-    setInitialValues({
-      ...initialValues,
-      start: result,
-    });
+    const result = value ? new Date(value) : null;
+
+    if (initialValues.end && result > new Date(initialValues.end)) {
+      setInitialValues({
+        ...initialValues,
+        start: initialValues.end,
+        end: result,
+      });
+    }
   };
 
   const onChangeEnd = (value) => {
-    const result = new Date(value);
-    console.log(result);
-    setInitialValues({
-      ...initialValues,
-      end: result,
-    });
+    const result = value ? new Date(value) : null;
+
+    if (initialValues.start && result < new Date(initialValues.start)) {
+      setInitialValues({
+        ...initialValues,
+        start: result,
+        end: initialValues.start,
+      });
+
+      message.open({
+        type: "warning",
+        content:
+          "La fecha de finalización no puede ser anterior a la de inicio!.",
+        duration: 4,
+      });
+    } else {
+      setInitialValues({
+        ...initialValues,
+        end: result,
+      });
+    }
   };
 
   const handleDeleteEvent = async () => {
@@ -75,30 +94,29 @@ const FormEvent = ({
   };
 
   const handleSubmit = () => {
-    if (initialValues) {
-      const event = {
-        id: initialValues.id,
-        title: initialValues.title.toUpperCase(),
-        start: initialValues.start,
-        end: initialValues.end,
-      };
+    const event = {
+      id: initialValues.id,
+      title:
+        initialValues.title === ""
+          ? "DISPONIBLE"
+          : initialValues.title.toUpperCase(),
+      start: initialValues.start,
+      end: initialValues.end,
+    };
 
-      if (isEditting) {
-        //editar evento
-        updateEvents(event);
-        message.success("Evento editado con éxito!");
-        
-      } else {
-        //crear evento
-        addEvent(event);
-        message.success("Evento creado con éxito!");
-        
-      }
-      form.resetFields();
-      closeModal();
+    if (isEditting) {
+      //editar evento
+      updateEvents(event);
+      message.success("Evento editado con éxito!");
+    } else {
+      //crear evento
+
+      addEvent(event);
+      message.success("Evento creado con éxito!");
     }
+    form.resetFields();
+    closeModal();
   };
-  console.log("aca", initialValues);
 
   return (
     <div className=" max-w-screen-xl flex flex-col mx-auto mt-6 justify-center items-center ">
@@ -119,8 +137,20 @@ const FormEvent = ({
           label="Nombre y Apellido"
           rules={[
             {
-              required: true,
+              required: !isEditting,
               message: "Por favor, ingresa un nombre!",
+            },
+            {
+              min: 4,
+              message: "El nombre debe tener al menos 4 caracteres!",
+            },
+            {
+              max: 20,
+              message: "El nombre no puede tener más de 20 caracteres!",
+            },
+            {
+              pattern: /^[a-zA-Z\s]*$/,
+              message: "El nombre solo puede contener letras y espacios!",
             },
           ]}
         >
@@ -147,7 +177,7 @@ const FormEvent = ({
               <DatePicker
                 format="DD-MM-YYYY HH:mm"
                 showTime
-                value={dayjs(initialValues.start)}
+                value={initialValues.start ? dayjs(initialValues.start) : null}
                 onChange={onChangeStart}
               />
             </Space>
@@ -169,7 +199,7 @@ const FormEvent = ({
               <DatePicker
                 format="DD-MM-YYYY HH:mm"
                 showTime
-                value={dayjs(initialValues.end)}
+                value={initialValues.end ? dayjs(initialValues.end) : null}
                 onChange={onChangeEnd}
               />
             </Space>
@@ -177,27 +207,28 @@ const FormEvent = ({
         </Form.Item>
 
         <Form.Item className="flex justify-end">
-          <Button type="primary" htmlType="submit">
-            Guardar
-          </Button>
+          <div className="flex space-x-3">
+            {isEditting && (
+              <Button
+                type="button"
+                onClick={handleDeleteEvent}
+                style={{
+                  border: "none",
+                }}
+              >
+                <img
+                  src="/logo/delete.png"
+                  alt="add logo"
+                  className="w-7 transition-transform duration-300 hover:animate-rotate-scale"
+                />
+              </Button>
+            )}
+            <Button type="primary" htmlType="submit">
+              Guardar
+            </Button>
+          </div>
         </Form.Item>
       </Form>
-
-      {isEditting && (
-        <Button
-          htmlType="submit"
-          onClick={handleDeleteEvent}
-          style={{
-            border: "none",
-          }}
-        >
-          <img
-            src="/logo/delete.png"
-            alt="add logo"
-            className="w-7 transition-transform duration-300 hover:animate-rotate-scale"
-          />
-        </Button>
-      )}
       {contextHolder}
     </div>
   );
