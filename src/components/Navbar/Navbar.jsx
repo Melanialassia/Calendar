@@ -1,7 +1,7 @@
 const Navbar = ({ openCreateModal }) => {
   return (
     <nav className="bg-white">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <div className="flex flex-wrap items-center justify-between mx-auto p-4">
         <a
           href="/"
           className="flex items-center space-x-3 text-zinc-700 rtl:space-x-reverse"
@@ -11,7 +11,6 @@ const Navbar = ({ openCreateModal }) => {
             Calendario
           </span>
         </a>
-        {/* BARDA DE BUSQUEDA */}
         <div className="flex md:order-2">
           <button
             onClick={openCreateModal}
