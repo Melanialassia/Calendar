@@ -119,11 +119,11 @@ const FormEvent = ({
     if (isEditting) {
       //editar evento
       updateEvents(event);
-      message.success("Evento editado con éxito!");
+      message.success("Turno editado con éxito!");
     } else {
       //crear evento
       addEvent(event);
-      message.success("Evento creado con éxito!");
+      message.success("Turno creado con éxito!");
     }
     form.resetFields();
     closeModal();

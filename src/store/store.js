@@ -40,7 +40,7 @@ export const store = create((set, get) => ({
 
         set((state) => ({
           ...state,
-          events: formatEvent,
+          events: formatEvent
         }));
       } else {
         const result = storedEvent.map((e) => ({
