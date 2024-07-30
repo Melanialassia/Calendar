@@ -24,7 +24,7 @@ Este proyecto es un desafío de front-end para construir una aplicacion de horar
 ```
 
 3. Ejecuta el proyecto
- - La aplicación estará disponible en http://localhost:3000.
+ - La aplicación estará disponible en http://localhost:5173/.
 
 ```sh
   npm run dev
