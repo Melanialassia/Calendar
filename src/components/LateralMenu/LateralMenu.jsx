@@ -38,7 +38,7 @@ const LateralMenu = ({ setDateSelected, handleFilterChange }) => {
 
   return (
     <aside className="hidden lg:flex flex-row p-4">
-        <ul className=" h-full w-full">
+        <ul className="h-full w-full">
           <li>
             <Calendar
               localizer={localizer}
