@@ -224,7 +224,7 @@ const FormEvent = ({
 
         <Form.Item className="flex justify-end">
           <div className="flex space-x-3">
-            {isEditting && (
+            {isEditting && initialValues.title != "DISPONIBLE" && (
               <Button
                 type="button"
                 onClick={handleDeleteEvent}
