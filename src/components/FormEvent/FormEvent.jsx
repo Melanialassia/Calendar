@@ -133,7 +133,7 @@ const FormEvent = ({
 
   return (
     <div className=" max-w-screen-xl flex flex-col mx-auto mt-6 justify-center items-center ">
-      <h2 className="text-2xl font-semibold mb-6 mt-2">
+      <h2 className="text-2xl font-roboto font-semibold mb-6 mt-2 text-zinc-600">
         {isEditting === false ? "Añadir nuevo turno" : "Editar turno"}
       </h2>
       <Form
@@ -148,6 +148,7 @@ const FormEvent = ({
         <Form.Item
           name="title"
           label="Nombre y Apellido"
+          className="text-zinc-600 font-roboto font-medium"
           rules={[
             {
               required: !isEditting,
@@ -169,7 +170,7 @@ const FormEvent = ({
         >
           <Input
             value={initialValues.title}
-            className="w-full border border-gray-300 rounded-md focus:ring-0 focus:ring-blue-500 focus:border-blue-500 "
+            className="w-full border border-gray-300 rounded-md focus:ring-0  focus:ring-blue-500 focus:border-blue-500 "
             placeholder="Ingresa un título"
             onChange={onChangeTitle}
           />
@@ -188,7 +189,7 @@ const FormEvent = ({
           <ConfigProvider locale={esES}>
             <Space direction="vertical" className="w-full">
               <DatePicker
-                className="w-full"
+                className="w-full text-zinc-600 font-roboto font-medium"
                 format="DD-MM-YYYY HH:mm"
                 showTime
                 value={initialValues.start ? dayjs(initialValues.start) : null}
@@ -211,7 +212,7 @@ const FormEvent = ({
           <ConfigProvider locale={esES}>
             <Space direction="vertical" className="w-full">
               <DatePicker
-                className="w-full"
+                className="w-full text-zinc-600 font-roboto font-medium"
                 format="DD-MM-YYYY HH:mm"
                 showTime
                 value={initialValues.end ? dayjs(initialValues.end) : null}

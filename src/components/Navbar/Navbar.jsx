@@ -8,7 +8,7 @@ const Navbar = ({ openCreateModal }) => {
           className="flex items-center space-x-3 text-zinc-700 rtl:space-x-reverse"
         >
           <img src="/logo/calendar.png" className="h-8" alt="Calendar logo" />
-          <span className="self-center text-2xl font-semibold text-zinc-600">
+          <span className="self-center text-2xl font-semibold font-roboto text-zinc-600">
             Calendario
           </span>
         </a>
