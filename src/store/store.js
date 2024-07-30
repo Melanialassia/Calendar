@@ -20,8 +20,8 @@ export const store = create((set, get) => ({
         };
 
         const formatEvent = data.map((e) => {
-          const fecha = e.fecha.slice(0, 10);
-          const start = new Date(`${fecha}T${e.hora}:00`);
+          const date = e.fecha.slice(0, 10);
+          const start = new Date(`${date}T${e.hora}:00`);
 
           const end = new Date(start.getTime() + 30 * 60000); // a la hora del inicio  se le suma 30 minutos para asi generar la hora final
           const idRandom = getRandomId(1000);

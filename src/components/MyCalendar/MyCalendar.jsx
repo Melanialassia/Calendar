@@ -17,7 +17,6 @@ const MyCalendar = ({
   dateSelected,
   setView,
   view,
-  filter,
 }) => {
   const { getEvents, events } = store();
   const localizer = dayjsLocalizer(dayjs);
