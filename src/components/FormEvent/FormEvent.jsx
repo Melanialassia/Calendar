@@ -48,12 +48,13 @@ const FormEvent = ({
 
   const onChangeStart = (value) => {
     const result = value ? new Date(value) : null;
-    console.log("entre", result);
+
     if (initialValues.end && result > new Date(initialValues.end)) {
+      const hourEnd=  new Date(result.getTime() + 30 * 60000)
       setInitialValues({
         ...initialValues,
-        start: initialValues.end,
-        end: result,
+        start: result,
+        end: hourEnd,
       });
       message.open({
         type: "warning",
