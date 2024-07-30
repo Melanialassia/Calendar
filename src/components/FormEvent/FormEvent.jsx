@@ -20,7 +20,7 @@ const FormEvent = ({
   initialValues,
   setInitialValues,
   isEditting,
-  closeModal
+  closeModal,
 }) => {
   const { addEvent, updateEvents, removeEvent } = store();
   const [modal, contextHolder] = Modal.useModal();
@@ -48,7 +48,7 @@ const FormEvent = ({
 
   const onChangeStart = (value) => {
     const result = value ? new Date(value) : null;
-console.log("entre", result);
+    console.log("entre", result);
     if (initialValues.end && result > new Date(initialValues.end)) {
       setInitialValues({
         ...initialValues,
@@ -167,7 +167,7 @@ console.log("entre", result);
         >
           <Input
             value={initialValues.title}
-            className="border border-gray-300 rounded-md focus:ring-0 focus:ring-blue-500 focus:border-blue-500 "
+            className="w-full border border-gray-300 rounded-md focus:ring-0 focus:ring-blue-500 focus:border-blue-500 "
             placeholder="Ingresa un título"
             onChange={onChangeTitle}
           />
@@ -184,8 +184,9 @@ console.log("entre", result);
           ]}
         >
           <ConfigProvider locale={esES}>
-            <Space direction="vertical">
+            <Space direction="vertical" className="w-full">
               <DatePicker
+                className="w-full"
                 format="DD-MM-YYYY HH:mm"
                 showTime
                 value={initialValues.start ? dayjs(initialValues.start) : null}
@@ -206,8 +207,9 @@ console.log("entre", result);
           ]}
         >
           <ConfigProvider locale={esES}>
-            <Space direction="vertical">
+            <Space direction="vertical" className="w-full">
               <DatePicker
+                className="w-full"
                 format="DD-MM-YYYY HH:mm"
                 showTime
                 value={initialValues.end ? dayjs(initialValues.end) : null}

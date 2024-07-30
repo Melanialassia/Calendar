@@ -9,7 +9,7 @@ import Modal from "./components/Modal/Modal";
 import { store } from "./store/store";
 
 function App() {
-  const {filterEvent, getEvents} = store();
+  const { filterEvent, getEvents } = store();
 
   //manipulacion vistas
   const [dateSelected, setDateSelected] = useState();
@@ -54,25 +54,27 @@ function App() {
     setModal(false);
   };
 
-
   //manipulacion de filtrados
   const handleFilterChange = (e) => {
     filterEvent(e.target.value);
   };
 
   return (
-    <div className="m-0 p-0">
+    <div className="min-h-screen flex flex-col">
       <Navbar openCreateModal={openCreateModal} />
-      <div className=" flex  mx-auto p-4">
-        <LateralMenu setDateSelected={setDateSelected} handleFilterChange={handleFilterChange} />
-        <MyCalendar
-          openCreateModal={openCreateModal}
-          openEditModal={openEditModal}
+      <div className=" flex flex-col lg:flex-row mx-auto p-4 h-full w-full">
+        <LateralMenu
           setDateSelected={setDateSelected}
-          dateSelected={dateSelected}
-          setView={setView}
-          view={view}
+          handleFilterChange={handleFilterChange}
         />
+          <MyCalendar
+            openCreateModal={openCreateModal}
+            openEditModal={openEditModal}
+            setDateSelected={setDateSelected}
+            dateSelected={dateSelected}
+            setView={setView}
+            view={view}
+          />
         <Modal show={modal} closeModal={closeModal}>
           <FormEvent
             setInitialValues={setInitialValues}

@@ -17,7 +17,7 @@ const MyCalendar = ({
   dateSelected,
   setView,
   view,
-  filter
+  filter,
 }) => {
   const { getEvents, events } = store();
   const localizer = dayjsLocalizer(dayjs);
@@ -60,41 +60,46 @@ const MyCalendar = ({
     setCurrentDate(date);
   };
 
-  const defaultDate = !dateSelected ? new Date(2021, 8, 16) : currentDate;
+  const defaultDate = !currentDate ? new Date(2021, 8, 16) : currentDate;
+  console.log("septcurrent", currentDate);
 
   return (
     <div className="flex p-4 w-full h-full">
-      <Calendar
-        localizer={localizer}
-        events={events}
-        date={defaultDate}
-        onNavigate={handleNavigate}
-        view={view}
-        style={{ height: 700, width: "95%", margin: "0 auto" }}
-        eventPropGetter={eventPropGetter}
-        onDoubleClickEvent={handleEditEvent}
-        onSelectSlot={handleSelectSlot}
-        selectable
-        className="custom"
-        views={["month", "week", "day", "agenda"]}
-        onView={handleViewChange}
-        messages={{
-          previous: (
-            <img src="/logo/left.png" alt="izquierda" className="w-5 h-5" />
-          ),
-          next: <img src="/logo/right.png" alt="derecha" className="w-5 h-5" />,
-          today: <p className="w-7 h-5">Hoy</p>,
-          month: "Mes",
-          week: "Semana",
-          day: "Día",
-          agenda: "Agenda",
-          date: "Fecha",
-          time: "Hora",
-          event: "Evento",
-          noEventsInRange: "No hay eventos",
-          showMore: (total) => `+${total} más`,
-        }}
-      />
+      <div className="w-full h-full xl:h-4/6 mx-auto" >
+        <Calendar
+          localizer={localizer}
+          events={events}
+          date={defaultDate}
+          onNavigate={handleNavigate}
+          view={view}
+          style={{ height: "100vh", width: "95%", margin: "0 auto" }}
+          eventPropGetter={eventPropGetter}
+          onDoubleClickEvent={handleEditEvent}
+          onSelectSlot={handleSelectSlot}
+          selectable
+          className="custom"
+          views={["month", "week", "day", "agenda"]}
+          onView={handleViewChange}
+          messages={{
+            previous: (
+              <img src="/logo/left.png" alt="izquierda" className="w-5 h-5" />
+            ),
+            next: (
+              <img src="/logo/right.png" alt="derecha" className="w-5 h-5" />
+            ),
+            today: <p className="w-7 h-5">Hoy</p>,
+            month: "Mes",
+            week: "Semana",
+            day: "Día",
+            agenda: "Agenda",
+            date: "Fecha",
+            time: "Hora",
+            event: "Evento",
+            noEventsInRange: "No hay eventos",
+            showMore: (total) => `+${total} más`,
+          }}
+        />
+      </div>
     </div>
   );
 };
