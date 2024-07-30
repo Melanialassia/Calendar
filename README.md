@@ -1,8 +1,31 @@
-# React + Vite
+# Front-end Challenge - Calendar
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Descripción
+Este proyecto es un desafío de front-end para construir una aplicacion de horarios similar a Google Calendar. Se utilizo React, Tailwind CSS, Zustand para la gestión de estados, entre otras. Este calendario permite ver, agregar, editar y eliminar citas del días seleccionado.
 
-Currently, two official plugins are available:
+# Para empezar
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Requisitos
+
+- Node.js (versión 14 o superior).
+
+## Instalación
+
+1. Clonar repositorio:
+
+```sh
+  git clone https://github.com/Melanialassia/Calendar.git
+```
+
+2. Instala las dependencias:
+
+```sh
+  npm install
+```
+
+3. Ejecuta el proyecto
+ - La aplicación estará disponible en http://localhost:3000.
+
+```sh
+  npm run dev
+```
