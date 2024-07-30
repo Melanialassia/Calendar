@@ -26,11 +26,6 @@ const FormEvent = ({
   const [modal, contextHolder] = Modal.useModal();
   const [form] = Form.useForm();
 
-  //mensaje modal de confirmacion
-  const config = {
-    title: "¿Esta seguro de borrar el evento?",
-  };
-
   useEffect(() => {
     if (initialValues) {
       form.setFieldsValue(initialValues);
@@ -93,6 +88,12 @@ const FormEvent = ({
       });
     }
   };
+
+  //mensaje modal de confirmacion
+  const config = {
+    title: "¿Esta seguro de borrar el evento?",
+  };
+
 
   const handleDeleteEvent = async () => {
     const confirmed = await modal.confirm(config);
